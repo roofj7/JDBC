@@ -27,7 +27,7 @@ cgpa FLOAT
 javac -cp .;ojdbc8.jar Test02.java
 java -cp .;ojdbc8.jar Test02
 
-# Sample Output:
+<details> <summary>Click to expand</summary>
 Connected to the database
 
 1. Add Student
@@ -74,3 +74,4 @@ Enter rno to delete: 34
 5. Exit
 Enter your choice: 5
 Thank you
+</details>

@@ -17,8 +17,8 @@ public class Test02 {
         }
 
         try (Connection con = DriverManager.getConnection(url, user, pass);
-             Scanner num = new Scanner(System.in);
-             Scanner str = new Scanner(System.in)) {
+            
+             Scanner input = new Scanner(System.in)) {
 
             System.out.println("Connected to the database");
             int choice;
@@ -26,20 +26,20 @@ public class Test02 {
             do {
                 System.out.println("\n1. Add Student \n2. Display All \n3. Search \n4. Delete \n5. Exit");
                 System.out.print("Enter your choice: ");
-                choice = num.nextInt();
+                choice = input.nextInt();
 
                 switch (choice) {
                     case 1:
-                        addStudent(con, num, str);
+                        addStudent(con, input);
                         break;
                     case 2:
                         displayAllStudents(con);
                         break;
                     case 3:
-                        searchStudent(con, num);
+                        searchStudent(con, input);
                         break;
                     case 4:
-                        deleteStudent(con, num);
+                        deleteStudent(con, input);
                         break;
                     case 5:
                         System.out.println("Thank you");
@@ -56,11 +56,11 @@ public class Test02 {
         }
     }
 
-    private static void addStudent(Connection con, Scanner num, Scanner str) throws SQLException {
+    private static void addStudent(Connection con, Scanner input) throws SQLException {
         System.out.print("Enter rno, name and cgpa: ");
-        int rno = num.nextInt();
-        String name = str.next();
-        float cgpa = num.nextFloat();
+        int rno = input.nextInt();
+        String name = input.next();
+        float cgpa = input.nextFloat();
 
         String sql = "INSERT INTO student1 (rno, name, cgpa) VALUES (?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -68,6 +68,7 @@ public class Test02 {
             ps.setString(2, name);
             ps.setDouble(3, cgpa);
             int result = ps.executeUpdate();
+        
             if (result > 0) {
                 System.out.println("Student added successfully.");
             }
@@ -88,9 +89,9 @@ public class Test02 {
         }
     }
 
-    private static void searchStudent(Connection con, Scanner num) throws SQLException {
+    private static void searchStudent(Connection con, Scanner input) throws SQLException {
         System.out.print("Enter rno to search: ");
-        int rno = num.nextInt();
+        int rno = input.nextInt();
 
         String sql = "SELECT * FROM student1 WHERE rno=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -107,9 +108,9 @@ public class Test02 {
         }
     }
 
-    private static void deleteStudent(Connection con, Scanner num) throws SQLException {
+    private static void deleteStudent(Connection con, Scanner input) throws SQLException {
         System.out.print("Enter rno to delete: ");
-        int rno = num.nextInt();
+        int rno = input.nextInt();
 
         String sql = "DELETE FROM student1 WHERE rno=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
